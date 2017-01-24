@@ -10,5 +10,27 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "工行北京分行排队系统",
     "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "color": "#dddddd",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [{
+      "pagePath": "pages/index/index",
+      "iconPath": "image/wechat.png",
+      "selectedIconPath": "image/wechatHL.png",
+      "text": "取号"
+    }, {
+      "pagePath": "pages/near/near",
+      "iconPath": "image/wechat.png",
+      "selectedIconPath": "image/wechatHL.png",
+      "text": "附近"
+    }, {
+      "pagePath": "pages/paidui/paidui",
+      "iconPath": "image/wechat.png",
+      "selectedIconPath": "image/wechatHL.png",
+      "text": "个人"
+    }]
   }
 }
