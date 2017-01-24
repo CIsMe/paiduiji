@@ -13,7 +13,8 @@ var pageObject = {
     plain: false,
     loading: false,
     hidden: true,
-    nocancel: false
+    nocancel: false,
+  paidui:'请签到'
   },
   cancel: function () {
     this.setData({
@@ -26,28 +27,41 @@ var pageObject = {
     });
     console.log("clicked confirm");
   },
-  setDisabled: function (e) {
-    this.setData({
-      disabled: !this.data.disabled
-    })
-  },
-  setPlain: function (e) {
-    this.setData({
-      plain: !this.data.plain
-    })
-  },
-  setLoading: function (e) {
-    this.setData({
-      loading: !this.data.loading
+  
+
+  //事件处理函数
+  startScan: function () {
+    wx.scanCode({
+      success: (res) => {
+        console.log("我已经扫码完成,将要发送报文到BIOM服务器 " + res.result)
+        console.log('你当前号码为:' + res.result + ',还剩余排队人数为为13人,预估还需等待8分钟,请耐心等候')
+           this.data['paidui'] = '你当前号码为:' + res.result + ',还剩余排队人数为为13人,预估还需等待8分钟,请耐心等候'
+        var key = 'hidden'
+        var changedData = {}
+        changedData[key] =
+         this.data[key] === false
+        this.setData(changedData)
+        //TODO
+
+
+      },
+
+
+
+      fail: (res) => {
+        console.log("我已经扫码了,不知道为什么会失败 " + res)
+      }
     })
   }
+
   ,
-  //事件处理函数
-  bindViewTap: function () {
+  findNearBank:function(){
     wx.navigateTo({
-      url: '../logs/logs'
+      url: '../near/near',
     })
-  },
+  }
+
+  ,
   onLoad: function () {
     console.log('onLoad')
     var that = this
@@ -61,28 +75,7 @@ var pageObject = {
   }
 }
 
-for (var i = 0; i < types.length; ++i) {
-  (function (type) {
-    pageObject[type] = function (e) {
-      wx.scanCode({
-        success: (res) => {
-          console.log("我已经扫码完成,将要发送报文到BIOM服务器 " + res)
-          
-          //TODO
 
-        },
-        fail: (res) => {
-          console.log("我已经扫码了,不知道为什么会失败 " + res)
-          var key = 'hidden'
-          var changedData = {}
-            changedData[key] =
-        this.data[key] === false
-        this.setData(changedData)
-        }
-      })
-    }
-  })(types[i])
-}
 Page(pageObject)
 
 

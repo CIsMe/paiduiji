@@ -1,8 +1,10 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/logs/logs"
-  ],
+    "pages/logs/logs",
+    "pages/near/near",
+    "pages/paidui/paidui"
+      ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",

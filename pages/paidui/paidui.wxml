@@ -1,0 +1,10 @@
+
+<!--pages/paidui/paidui.wxml-->
+<text>排队成功</text>
+  <view class="button-wrapper2">
+    <button type="primary" size="{{warnSize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="return"> 返回首页
+    </button>
+    </view>
+<modal hidden="{{hidden}}" title="{{bank}}" confirm-text="确定" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm" no-cancel="{{nocancel}}">
+  你已经排队成功,排在你前面还有30人,预计15分钟后将为办理业务,请提前前往该网点
+</modal>

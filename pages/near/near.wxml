@@ -1,0 +1,28 @@
+
+<!--pages/near/near.wxml-->
+<text>查找最近网点</text>
+
+<!--index.wxml-->
+<view class="container">
+  <view bindtap="bindViewTap" class="userinfo">
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+  </view>
+  <view class="usermotto">
+
+    <!-- <text class="user-motto">{{motto}}\n</text>-->
+    <text>经度：{{location.longitude}}\n</text>
+    <text>纬度：{{location.latitude}}</text>
+  </view>
+  <radio-group class="radio-group" bindchange="radioChange">
+    <label class="radio" wx:for="{{items}}">
+      <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+    </label>
+  </radio-group>
+  <view class="button-wrapper">
+    <button type="primary" size="{{warnSize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="paidui"> 在此网点排号
+    </button>
+  </view>
+  <modal hidden="{{hidden}}" title="最近网点" confirm-text="确定" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm" no-cancel="{{nocancel}}">
+    为你找到以下最近的三家网点
+  </modal>
+</view>
