@@ -46,8 +46,6 @@ var pageObject = {
 
       },
 
-
-
       fail: (res) => {
         console.log("我已经扫码了,不知道为什么会失败 " + res)
       }

@@ -12,6 +12,9 @@
   border-radius: 50%;
 }
 
+.button-wrapper2 {
+  margin-top: 30px;
+}
 .userinfo-nickname {
   color: #aaa;
 }

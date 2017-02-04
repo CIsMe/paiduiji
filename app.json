@@ -8,7 +8,7 @@
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "工行北京分行排队系统",
+    "navigationBarTitleText": "工行广东分行排队系统",
     "navigationBarTextStyle":"black"
   },
   "tabBar": {

@@ -9,10 +9,10 @@
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
   </view>
-  <view class="button-wrapper">
+  <!--<view class="button-wrapper">
     <button type="primary" size="{{warnSize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="findNearBank"> 寻找最近网点
     </button>
-  </view>
+  </view>-->
   <view class="button-wrapper2">
     <button type="primary" size="{{warnSize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="startScan"> 扫码取号
     </button>
