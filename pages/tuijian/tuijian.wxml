@@ -1,0 +1,2 @@
+<!--pages/tuijian/tuijian.wxml-->
+<text>{{content}}</text>

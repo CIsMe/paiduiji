@@ -1,0 +1,12 @@
+
+<!--pages/pingjia/pingjia.wxml-->
+<text>请{{teller}}进行评价</text>
+<radio-group class="radio-group" bindchange="radioChange">
+  <label class="radio" wx:for="{{items}}">
+    <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+  </label>
+</radio-group>
+<view class="button-wrapper2">
+<button type="primary" size="default" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="ok"> 确定
+</button>
+</view>
