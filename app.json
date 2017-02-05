@@ -5,7 +5,8 @@
     "pages/near/near",
     "pages/paidui/paidui",
     "pages/pingjia/pingjia",
-    "pages/tuijian/tuijian"
+    "pages/tuijian/tuijian",
+    "pages/list/list"
       ],
   "window":{
     "backgroundTextStyle":"light",

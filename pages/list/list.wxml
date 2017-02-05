@@ -1,0 +1,18 @@
+<!--logs.wxml-->
+<view class="container log-list">
+    <scroll-view class="netlist">
+      <radio-group class="radio-group" bindchange="radioChange">
+        <label class="radio" wx:for="{{list}}">
+          <radio value="{{index}}" checked="{{item}}" />{{item}}
+        </label>
+      </radio-group>
+    </scroll-view>
+   <!--<block wx:for="{{logs}}" wx:for-item="log" wx:key="*this">
+    <text class="log-item">{{index + 1}}. {{log}}</text>
+  </block>-->
+    <view class="button-wrapper">
+      <button type="primary" size="{{warnSize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="paidui"> 在此网点排号
+      </button>
+      <!--<text>{{content}}</text>-->
+    </view>
+</view>

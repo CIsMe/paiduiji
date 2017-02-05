@@ -2,7 +2,8 @@
 
 .mapinfo {
   background:green;
-  height:300px;
+  width:100%;
+  height:450px;
 }
 
 .location {
@@ -17,6 +18,22 @@
   flex-direction: row;
   align-items: center;
   margin-top: 10px;
+}
+
+.reset {
+  margin-left: 10px;
+}
+
+.list {
+  margin-left: 10px;
+}
+
+.netlist {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height:300px;
+
 }
 
 .radio-group {
