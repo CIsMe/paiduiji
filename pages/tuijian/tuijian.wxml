@@ -1,2 +1,4 @@
-<!--pages/tuijian/tuijian.wxml-->
-<text>{{content}}</text>
+    <!--pages/tuijian/tuijian.wxml-->
+    <text>{{content}}</text>
+
+<button>测试</button>

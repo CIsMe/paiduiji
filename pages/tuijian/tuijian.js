@@ -1,6 +1,19 @@
 // pages/tuijian/tuijian.js
 Page({
   data: { content: "推介" },
+  // getData: function () {
+  //   var json = {
+  //     contry: {
+  //       area: {
+  //         man: "12万",
+  //         women: "10万"
+  //       }
+  //     }
+  //    eval(json)
+  //   }
+  // }
+
+  // ,
   reqUrl: function () {
     var that = this
     wx.request({

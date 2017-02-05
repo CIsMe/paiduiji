@@ -1,7 +1,7 @@
 // pages/pingjia/pingjia.js
 Page({
   data: {
-    teller:"",
+    teller: "",
     items: [
       { name: '满意', value: '满意', checked: 'true' },
       { name: '一般', value: '一般' },
@@ -16,10 +16,21 @@ Page({
   }
   ,
 
-
-  onLoad: function (options) {
+  setTellerNo: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
     console.log(options.teller)
+    var tells = options.teller;
+    var tellerNo = tells.substring("推介:".length)
+        console.log(tellerNo)
+
+    this.setData({
+          teller: tellerNo+" "
+        })
+  }
+  ,
+  onLoad: function (options) {
+    // 页面初始化 options为页面跳转所带来的参数
+    this.setTellerNo(options);
   },
   onReady: function () {
     // 页面渲染完成
