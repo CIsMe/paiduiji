@@ -6,26 +6,31 @@
 <view class="container">
   <map class="mapinfo" id="myMap" longitude="{{location.longitude}}" latitude="{{location.latitude}}" scale="14" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" bindtap="maptap" show-location></map>
 
-  <view class="location">
-    <!-- <text class="user-motto">{{motto}}\n</text>-->
+  <!--<view class="location">
+     <text class="user-motto">{{motto}}\n</text>
     <text>经度：{{location.longitude}};</text>
     <text>纬度：{{location.latitude}}</text>
-  </view>
+  </view>-->
   <view class="location2">
-    <button class="button" bindtap="moveToLocation">查看位置</button>
+    <button class="test" bindtap="moveToLocation">测试位置</button>
     <button class="reset" bindtap="moveToLocation2">重置位置</button>
+    <button class="list" bindtap="showList">网点列表</button>
   </view>
 
-  <radio-group class="radio-group" bindchange="radioChange">
-    <label class="radio" wx:for="{{items}}">
-      <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+  <!--<radio-group class="radio-group" bindchange="radioChange">
+    <label class="radio" wx:for="{{markers}}">
+      <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.name}}
     </label>
-  </radio-group>
-  <view class="button-wrapper">
-    <button type="primary" size="{{warnSize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="paidui"> 在此网点排号
-    </button>
-  </view>
-  <!--<modal hidden="{{hidden}}" title="最近网点" confirm-text="确定" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm" no-cancel="{{nocancel}}">
-    为你找到以下最近的三家网点
-  </modal>-->
+  </radio-group>-->
+
+  <modal hidden="{{hidden}}" title="最近网点" confirm-text="确定" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm" no-cancel="{{nocancel}}">
+    <scroll-view class="netlist">
+      <radio-group class="radio-group" bindchange="radioChange">
+        <label class="radio" wx:for="{{markers}}">
+          <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.name}}
+        </label>
+      </radio-group>
+    </scroll-view>
+  </modal>
+
 </view>

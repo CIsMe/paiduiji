@@ -1,7 +1,8 @@
 
 <!--pages/paidui/paidui.wxml-->
-<text>排队成功</text>
+
   <view class="button-wrapper2">
+    <text>排队成功</text>
     <button type="primary" size="{{warnSize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="return"> 返回首页
     </button>
     </view>

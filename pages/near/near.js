@@ -5,40 +5,20 @@ Page({
   data: {
     motto: '示例小程序-获取当前地理位、速度',
     userInfo: {},
-    hasLocation: false,
-    location: {},
-    hidden: false,
+    hasLocation: true,
+    location: {
+      latitude: '23.1065995692',
+      longitude: '113.3244326464',
+    },
+    hidden: true,
     bank:'',
     items: [
       { name: '工商银行工业园支行', value: '工商银行工业园支行', checked: 'true' },
       { name: '工商银行员村新街支行', value: '工商银行员村新街支行' },
       { name: '工商银行员村支行', value: '工商银行员村支行' },
     ],
-    markers: [{
-      id: 0,
-      latitude: 23.099994,
-      longitude: 113.324520,
-      width: 20,
-      height: 20,
-      name: 'T.I.T 创意园',
-      desc: '我现在的位置'
-    },{
-      id:1,
-      latitude: 23.1065995692,
-      longitude: 113.3244326464,
-      width: 20,
-      height: 20,
-      name: '广州塔',
-      desc: '广州塔'
-    },{
-      id:2,
-      latitude: 23.1027375692,
-      longitude: 113.3274466464,
-      width: 20,
-      height: 20,
-      name: '珠江帝景',
-      desc: '珠江帝景'
-    }],
+    list:[],
+    markers: [],
     polyline: [{
       points: [{
         longitude: 113.3245211,
@@ -53,29 +33,39 @@ Page({
     }],
     controls: [{
       id: 1,
-      iconPath: '../../image/plus.png',
+      iconPath: '../../image/list.png',
       position: {
         left: 0,
-        top: 300 - 50,
-        width: 50,
-        height: 50
+        top: 450 - 30,
+        width: 30,
+        height: 30
       },
       clickable: true
     }]
   },
   regionchange(e) {
+    var that = this
     console.log(e)
     console.log(e.type)
+    if(e.type == 'end'){
+      that.getData();
+    }
   },
   markertap(e) {
     console.log(e.markerId)
-    console.log(this.markers)
+    this.lightMarker(e.markerId)
+    this.showDetail(e.markerId)
   },
   maptap(e){
     console.log('maptap')
   },
   controltap(e) {
     console.log(e.controlId)
+    // this.showList()
+    var that = this
+      that.setData({
+      hidden: false
+    })
   },
   radioChange: function (e) {
     console.log('radio发生change事件，携带value值为：',    e.detail.value);
@@ -92,8 +82,7 @@ Page({
     // 使用 wx.createMapContext 获取 map 上下文 
     var that = this
     that.mapCtx = wx.createMapContext('myMap')
-    // this.getCenterLocation()
-    // this.moveToLocation()
+
     wx.getLocation({
       success: function (res) {
         console.log(res)
@@ -106,14 +95,105 @@ Page({
         })
       }
     })
+    this.mapCtx.moveToLocation()
+  },
+  showDetail:function(mid){
+    var arr_list = new Array()
+    arr_list.push(this.getNetname(mid))
+    arr_list.push(this.getNetdesc(mid))
+    arr_list.push("取号")
+    arr_list.push("导航")
+    wx.showActionSheet({
+      itemList:arr_list,
+      success: function(res) {
+        console.log(res.tapIndex)
+      },
+      fail: function(res) {
+        console.log(res.errMsg)
+      }
+    })
+
+  },
+  showList:function(){
+    console.log(this.data['list'])
+    
+    wx.navigateTo({
+      url: '../list/list?id='+this.data['list'],
+    })
   },
   getCenterLocation: function () {
+    var that = this
     this.mapCtx.getCenterLocation({
       success: function(res){
         console.log(res.longitude)
         console.log(res.latitude)
+        that.setData({
+          hasLocation: true,
+          location: {
+            longitude: res.longitude,
+            latitude: res.latitude
+          }
+        })
       }
     })
+  },
+  lightMarker:function(mid){
+    var that = this
+    var arr_marker = new Array()
+    that.data['markers'].forEach(function(e){
+      console.log(e.id)
+      if(e.id == mid ){
+        arr_marker.push({
+          id:e.id,
+          latitude:e.latitude,
+          longitude:e.longitude,
+          width:20,
+          height:30,
+          iconPath:'../../image/red.png',
+          name:e.name,
+          desc:e.desc
+        });        
+      } else {
+        arr_marker.push({
+          id:e.id,
+          latitude:e.latitude,
+          longitude:e.longitude,
+          width:20,
+          height:30,
+          iconPath:'../../image/green.png',
+          name:e.name,
+          desc:e.desc
+        });
+      }
+    })
+    console.log('arr_marker:'+arr_marker)
+    that.setData({
+      markers: arr_marker
+    })
+  },
+  getNetname:function(mid){
+    var that = this
+    var res = ""
+    that.data['markers'].forEach(function(e){
+      console.log(e.id)
+      console.log(mid)
+      if(e.id == mid ){
+        res = e.name
+      } 
+    })
+    return res
+  },
+  getNetdesc:function(mid){
+    var that = this
+    var res = ""
+    that.data['markers'].forEach(function(e){
+      console.log(e.id)
+      console.log(mid)
+      if(e.id == mid ){
+        res = e.desc
+      } 
+    })
+    return res
   },
   moveToLocation: function () {
     this.setData({
@@ -146,8 +226,10 @@ Page({
         height: 20,
         name: '珠江帝景',
         desc: '珠江帝景'
-      }]
+      }],
+      list:['T.I.T 创意园','广州塔','珠江帝景']
     })
+
     // this.mapCtx.moveToLocation()
   },
   moveToLocation2: function () {
@@ -158,10 +240,73 @@ Page({
     this.getCenterLocation()
     this.mapCtx.moveToLocation()
   },
+  testReq:function(){
+    var that = this
+    wx.request({
+      url: 'https://skipper.applinzi.com/api',
+      data: {},
+      method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+      // header: {}, // 设置请求的 header
+      success: function (res) {
+        console.log(res.data)
+        that.data['content'] = res.data
+        that.setData({
+          content: res.data
+        })
+      },
+      fail: function () {
+        console.log("fail")
+      },
+      complete: function () {
+        // complete
+        console.log("complete")
+      }
+    })
+  },
+  getData:function(){
+    var that = this;
+    that.getCenterLocation()
+    wx.request({
+      url: 'https://eapply.abchina.com/entapply/api/values/Get', //仅为示例，并非真实的接口地址
+      method: 'GET',
+      data: {
+        logitude:this.data['location'].latitude,
+        latitude:this.data['location'].longitude,
+        distance:'5000',
+        businessType:'2'
+      },
+      header: {
+          'content-type': 'application/json'
+      },
+      success: function(res) {
+        console.log(res.data.BranchSearchRests)
+        
+        var arr_marker = new Array()
+        var arr_list = new Array()
+        res.data.BranchSearchRests.forEach(function(e){  
+          arr_marker.push({
+            id:e.BranchId,
+            latitude:e.Latitude,
+            longitude:e.Longitude,
+            width:20,
+            height:30,
+            iconPath:'../../image/green.png',
+            name:e.Name,
+            desc:e.FullAddress
+          });
+          arr_list.push(e.Name)
+        })
+        that.setData({
+          markers: arr_marker,
+          list:arr_list
+        })
+      }
+    })
+  },
   openLocation: function () {
     wx.openLocation({
-      latitude: this.location.latitude,
-      longitude: this.location.longitude,
+      latitude: this.data['location'].latitude,
+      longitude: this.data['location'].longitude,
       scale: 28
     })
   },
@@ -193,5 +338,6 @@ Page({
   },
   onLoad: function () {
     console.log('onLoad')
+    this.testReq()
   }
 })

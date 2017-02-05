@@ -1,0 +1,26 @@
+.log-list {
+  display: flex;
+  flex-direction: column;
+  padding: 40rpx;
+}
+.log-item {
+  margin: 10rpx;
+}
+
+.netlist {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height:300px;
+}
+
+.radio-group {
+  margin-top:10px;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.button-wrapper{
+  margin-top:10px;
+}
