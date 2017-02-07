@@ -1,9 +1,14 @@
 
 <!--index.wxml-->
 <view class="container">
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+  <view bindtap="bindViewTap" class="userinfo">
+    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+   <text class="user-motto">{{paidui}}</text>
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
   </view>
+  <!--<view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>-->
   <!--<view class="button-wrapper">
     <button type="primary" size="{{warnSize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="findNearBank"> 寻找最近网点
     </button>

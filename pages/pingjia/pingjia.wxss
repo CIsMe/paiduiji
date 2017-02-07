@@ -1,5 +1,5 @@
 /* pages/pingjia/pingjia.wxss */
-.radio-group {
+.radio-group { 
   margin-top:10px;
   display: flex;
   flex-direction: column;

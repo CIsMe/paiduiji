@@ -14,7 +14,14 @@ var pageObject = {
     loading: false,
     hidden: true,
     nocancel: false,
-    paidui: '请签到'
+    paidui:'请签到'
+  },
+  onShareAppMessage: function () {
+    return {
+      title: '码上约',
+      desc: '扫一扫',
+      path: '/pages/index'
+    }
   },
   cancel: function () {
     this.setData({
@@ -27,14 +34,21 @@ var pageObject = {
     });
     console.log("clicked confirm");
   },
-
+  
 
   //事件处理函数
   startScan: function () {
-    var that = this;
-
+    var that = this
     wx.scanCode({
       success: (res) => {
+        // console.log("我已经扫码完成,将要发送报文到BIOM服务器 " + res.result)
+        // console.log('你当前号码为:' + res.result + ',还剩余排队人数为为13人,预估还需等待8分钟,请耐心等候')
+        //    this.data['paidui'] = '你当前号码为:' + res.result + ',还剩余排队人数为为13人,预估还需等待8分钟,请耐心等候'
+        // var key = 'hidden'
+        // var changedData = {}
+        // changedData[key] =
+        //  this.data[key] === false
+        // this.setData(changedData)
 
         console.log("扫码结果:" + res.result)
         that.setData(res.result)
@@ -53,8 +67,6 @@ var pageObject = {
           })
         }
 
-
-
         //TODO
 
 
@@ -64,16 +76,12 @@ var pageObject = {
         console.log("我已经扫码了,不知道为什么会失败 " + res)
       }
     })
-  }
-
-  ,
-  findNearBank: function () {
+  },
+  findNearBank:function(){
     wx.navigateTo({
       url: '../near/near',
     })
-  }
-
-  ,
+  },
   onLoad: function () {
     console.log('onLoad')
     var that = this
