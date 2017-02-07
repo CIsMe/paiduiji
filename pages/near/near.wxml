@@ -1,8 +1,11 @@
-
 <!--pages/near/near.wxml-->
 <!--<text>查找最近网点</text>-->
-
 <view class="container mapview">
+      <!--<view class="tabbtn">
+        <button class="test" bindtap="moveToLocation">测试位置</button>
+        <button class="reset" bindtap="resetLocation">重置位置</button>
+        <button class="list" bindtap="showList">网点列表</button>
+      </view>-->
       <map class="mapinfo" id="myMap" styles="height:{{map.height}}" longitude="{{location.longitude}}" latitude="{{location.latitude}}" scale="14" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" bindtap="maptap" show-location>
       </map>
       <modal class="netdetail" hidden="{{hidden}}" title="最近网点" confirm-text="确定" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm" no-cancel="{{nocancel}}">
@@ -14,7 +17,7 @@
           </radio-group>
         </scroll-view>
       </modal>
-    
+
       <!--<view class="ctrlbtn btn">
         <button class="test" bindtap="moveToLocation">测试位置</button>
         <button class="reset" bindtap="resetLocation">重置位置</button>

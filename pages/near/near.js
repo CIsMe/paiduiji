@@ -23,6 +23,7 @@ Page({
     ],
     list:[],
     markers: [],
+    sel_marker:{},
     polyline: [{
       points: [{
         longitude: 113.3245211,
@@ -94,6 +95,7 @@ Page({
     console.log(e.markerId)
     this.lightMarker(e.markerId)
     this.showDetail(e.markerId)
+    
   },
   maptap(e){
     console.log('maptap')
@@ -139,15 +141,38 @@ Page({
     this.setData(changedData)
   },
   showDetail:function(mid){
+    var that = this
     var arr_list = new Array()
-    arr_list.push(this.getNetname(mid))
-    arr_list.push(this.getNetdesc(mid))
+    that.getMarker(mid)
+    console.log(that.data['sel_marker'])
+    arr_list.push(that.data['sel_marker'].name)
+    arr_list.push(that.data['sel_marker'].desc)
     arr_list.push("取号")
     arr_list.push("导航")
     wx.showActionSheet({
       itemList:arr_list,
       success: function(res) {
         console.log(res.tapIndex)
+        if(res.tapIndex == 0 ) {
+          
+        }
+        if(res.tapIndex == 1 ) {
+          
+        }
+        if(res.tapIndex == 2 ) {
+          console.log("index/index")
+          wx.navigateTo({
+            url: '../index/index',
+          })
+        }
+        if(res.tapIndex == 3 ) {
+          wx.openLocation({
+            longitude: Number(that.data['sel_marker'].longitude),
+            latitude: Number(that.data['sel_marker'].latitude),
+            name: that.data['sel_marker'].name,
+            address: that.data['sel_marker'].desc
+          })
+        }
       },
       fail: function(res) {
         console.log(res.errMsg)
@@ -157,9 +182,16 @@ Page({
   },
   showList:function(){
     console.log(this.data['list'])
-    
+    var arrmids = new Array()
+    this.data['markers'].forEach(function(e){ 
+      arrmids.push(e.id)
+    })
+    // var mid = this.data['markers'].id
+    // wx.navigateTo({
+    //   url: '../list/list?id='+this.data['list'],
+    // })
     wx.navigateTo({
-      url: '../list/list?id='+this.data['list'],
+      url: '../list/list?id='+arrmids,
     })
   },
   getCenterLocation: function () {
@@ -210,6 +242,17 @@ Page({
     console.log('arr_marker:'+arr_marker)
     that.setData({
       markers: arr_marker
+    })
+  },
+  getMarker:function(mid){
+    var that = this
+    that.data['markers'].forEach(function(obj){
+      if(obj.id == mid ){
+        console.log(obj)
+        that.setData({
+          sel_marker:obj
+        })
+      } 
     })
   },
   getNetname:function(mid){
@@ -329,10 +372,21 @@ Page({
       },
       success: function(res) {
         console.log(res.data.BranchSearchRests)
-        
+        // var netinfos = wx.getStorage('netinfos') || []
+        // logs.unshift(netinfos)
+        // wx.setStorageSync('logs', logs)
+
         var arr_marker = new Array()
         var arr_list = new Array()
-        res.data.BranchSearchRests.forEach(function(e){  
+        res.data.BranchSearchRests.forEach(function(e){ 
+          // try {
+          //     wx.setStorage(e.BranchId, e)
+          //     } catch (e) {
+          // } 
+          wx.setStorage({
+            key:e.BranchId,
+            data:e
+          })
           arr_marker.push({
             id:e.BranchId,
             latitude:e.Latitude,
@@ -359,13 +413,13 @@ Page({
       scale: 28
     })
   },
-  getMarker: function () {
-    wx.chooseLocation({
-        success: function (obj) {
-          console.log(res.name)
-        }
-    })
-  },
+  // getMarker: function () {
+  //   wx.chooseLocation({
+  //       success: function (obj) {
+  //         console.log(res.name)
+  //       }
+  //   })
+  // },
   getLocation: function () {
     wx.chooseLocation({
         success: function (obj) {
