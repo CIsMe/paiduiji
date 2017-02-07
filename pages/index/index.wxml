@@ -6,15 +6,15 @@
    <text class="user-motto">{{paidui}}</text>
     <text class="userinfo-nickname">{{userInfo.nickName}}</text>
   </view>
-  <view class="usermotto">
+  <!--<view class="usermotto">
     <text class="user-motto">{{motto}}</text>
-  </view>
+  </view>-->
   <!--<view class="button-wrapper">
     <button type="primary" size="{{warnSize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="findNearBank"> 寻找最近网点
     </button>
   </view>-->
   <view class="button-wrapper2">
-    <button type="primary" size="{{warnSize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="startScan"> 扫码取号
+    <button type="primary" size="{{warnSize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="startScan"> 扫一扫
     </button>
     <modal hidden="{{hidden}}" title="发送到网点排队机" confirm-text="确定" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm" no-cancel="{{nocancel}}">
     </modal>

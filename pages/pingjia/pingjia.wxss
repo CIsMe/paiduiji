@@ -1,0 +1,19 @@
+/* pages/pingjia/pingjia.wxss */
+.radio-group {
+  margin-top:30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.radio{
+  width:90px;
+}
+
+.ritem{
+  margin-top:5px;
+}
+
+.button-wrapper2 {
+  margin-top: 30px;
+}

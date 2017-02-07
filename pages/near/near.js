@@ -10,6 +10,10 @@ Page({
       latitude: '23.1065995692',
       longitude: '113.3244326464',
     },
+    map:{
+      width:100,
+      height:100
+    },
     hidden: true,
     bank:'',
     items: [
@@ -31,17 +35,52 @@ Page({
       width: 2,
       dottedLine: true
     }],
-    controls: [{
-      id: 1,
-      iconPath: '../../image/list.png',
-      position: {
-        left: 0,
-        top: 450 - 30,
-        width: 30,
-        height: 30
-      },
-      clickable: true
-    }]
+    controls: []
+  },
+  onShareAppMessage: function () {
+    return {
+      title: '码上约',
+      desc: '附近',
+      path: '/pages/near'
+    }
+  },
+  controlinit:function(){
+    var that = this
+    console.log("control:" + that.data['map'].height+","+that.data['map'].width)
+    var ctrlitem = [{
+        id: 1,
+        iconPath: '../../image/btntst.png',
+        position: {
+          left: 30,
+          top: 300,
+          width: 90,
+          height: 30
+        },
+        clickable: true
+      },{
+        id: 2,
+        iconPath: '../../image/btnloc.png',
+        position: {
+          left: 30,
+          top: 340,
+          width: 90,
+          height: 30
+        },
+        clickable: true
+      },{
+        id: 3,
+        iconPath: '../../image/btnnet.png',
+        position: {
+          left: 30,
+          top: 380,
+          width: 90,
+          height: 30
+        },
+        clickable: true
+      }]
+      that.setData({
+        controls:ctrlitem
+      })
   },
   regionchange(e) {
     var that = this
@@ -60,12 +99,33 @@ Page({
     console.log('maptap')
   },
   controltap(e) {
+    var that = this
     console.log(e.controlId)
     // this.showList()
-    var that = this
-      that.setData({
-      hidden: false
-    })
+    if(e.controlId == 1){
+      that.moveToLocation()
+    }
+    if(e.controlId == 2){
+      that.resetLocation()
+    }
+    if(e.controlId == 3){
+      that.showList()
+      // wx.showModal({
+      //   title: '网点列表',
+      //   content: '<button>HHHH</button>',
+      //   success: function(res) {
+      //     if (res.confirm) {
+      //       console.log('用户点击确定')
+      //       that.showList()
+      //     }
+      //   }
+      // })
+    }
+
+    // var that = this
+    //   that.setData({
+    //   hidden: false
+    // })
   },
   radioChange: function (e) {
     console.log('radio发生change事件，携带value值为：',    e.detail.value);
@@ -77,25 +137,6 @@ Page({
     changedData[key] =
       this.data[key] === false
     this.setData(changedData)
-  },
-  onReady: function (e) {
-    // 使用 wx.createMapContext 获取 map 上下文 
-    var that = this
-    that.mapCtx = wx.createMapContext('myMap')
-
-    wx.getLocation({
-      success: function (res) {
-        console.log(res)
-        that.setData({
-          hasLocation: true,
-          location: {
-            longitude: res.longitude,
-            latitude: res.latitude
-          }
-        })
-      }
-    })
-    this.mapCtx.moveToLocation()
   },
   showDetail:function(mid){
     var arr_list = new Array()
@@ -141,7 +182,7 @@ Page({
     var that = this
     var arr_marker = new Array()
     that.data['markers'].forEach(function(e){
-      console.log(e.id)
+      // console.log(e.id)
       if(e.id == mid ){
         arr_marker.push({
           id:e.id,
@@ -232,13 +273,21 @@ Page({
 
     // this.mapCtx.moveToLocation()
   },
-  moveToLocation2: function () {
-    this.setData({
-      location: {},
-      markers: []
+  resetLocation: function () {
+    var that = this
+    wx.getLocation({
+      success: function (res) {
+        console.log(res)
+        that.setData({
+          hasLocation: true,
+          location: {
+            longitude: res.longitude,
+            latitude: res.latitude
+          }
+        })
+      }
     })
-    this.getCenterLocation()
-    this.mapCtx.moveToLocation()
+    that.mapCtx.moveToLocation()
   },
   testReq:function(){
     var that = this
@@ -337,7 +386,58 @@ Page({
     })
   },
   onLoad: function () {
+    // 页面初始化 options为页面跳转所带来的参数
+    var that = this
+    wx.getSystemInfo({
+      success: function(res) {
+        console.log(res.model)
+        console.log(res.pixelRatio)
+        console.log(res.windowWidth)
+        console.log(res.windowHeight)
+        console.log(res.language)
+        console.log(res.version)
+        that.setData({
+          map:{
+            width:res.windowWidth,
+            height:res.windowHeight
+          } 
+        })
+      }
+    })
     console.log('onLoad')
-    this.testReq()
+    console.log(that.data['map'].width)
+    // that.controlinit()
+    that.testReq()
+  },
+  onReady: function () {
+    // 页面渲染完成
+    // 使用 wx.createMapContext 获取 map 上下文 
+    var that = this
+    that.mapCtx = wx.createMapContext('myMap')
+    
+    // that.controlinit()
+    wx.getLocation({
+      success: function (res) {
+        console.log(res)
+        that.setData({
+          hasLocation: true,
+          location: {
+            longitude: res.longitude,
+            latitude: res.latitude
+          }
+        })
+      }
+    })
+    this.mapCtx.moveToLocation()
+  },
+  onShow: function () {
+    // 页面显示
+    this.controlinit()
+  },
+  onHide: function () {
+    // 页面隐藏
+  },
+  onUnload: function () {
+    // 页面关闭
   }
 })

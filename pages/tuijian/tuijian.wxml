@@ -1,0 +1,15 @@
+<!--pages/tuijian/tuijian.wxml-->
+
+
+<view class="button-wrapper2">
+<!--<text>{{content}}</text>
+<button>测试</button>-->
+<radio-group class="radio-group" bindchange="radioChange">
+  <label class="radio" wx:for="{{products}}">
+    <radio class="ritem" value="{{item.buiredpoint_param.prodcode}}" checked="{{item.checked}}" />{{item.buiredpoint_param.prodname}}:{{item.incomerate.incomerate_data}}%
+  </label>
+  <label class="radio2" wx:for="{{products2}}">
+    <radio class="ritem2" value="{{item.buiredpoint_param.prodcode}}" checked="{{item.checked}}" />{{item.buiredpoint_param.prodname}}:{{item.year_income.year_data}}%
+  </label>
+</radio-group>
+</view>
