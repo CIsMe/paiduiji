@@ -1,32 +1,20 @@
 // pages/tuijian/tuijian.js
 Page({
-  data: { content: "推介" },
-  // getData: function () {
-  //   var json = {
-  //     contry: {
-  //       area: {
-  //         man: "12万",
-  //         women: "10万"
-  //       }
-  //     }
-  //    eval(json)
-  //   }
-  // }
-
-  // ,
+  data: { content: ""
+   },
   reqUrl: function () {
     var that = this
     wx.request({
-      url: 'https://skipper.applinzi.com/api',
+      url: 'https://skipper.applinzi.com/api/pro',
       data: {},
-      method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-      // header: {}, // 设置请求的 header
+      method: 'GET', 
       success: function (res) {
         console.log(res.data)
-        that.data['content'] = res.data
         that.setData({
-          content: res.data
+          content: res.data.opdata.jsonData2
         })
+        console.log(that.data["content"][1])
+
 
         // success
       },
@@ -43,16 +31,4 @@ Page({
   onLoad: function (options) {
     this.reqUrl();
   },
-  onReady: function () {
-    // 页面渲染完成
-  },
-  onShow: function () {
-    // 页面显示
-  },
-  onHide: function () {
-    // 页面隐藏
-  },
-  onUnload: function () {
-    // 页面关闭
-  }
 })

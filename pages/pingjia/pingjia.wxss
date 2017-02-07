@@ -9,3 +9,18 @@
 .button-wrapper2 {
   margin-top: 30px;
 }
+
+.star-image {
+  position: absolute;
+  top: 200rpx;
+  width: 150rpx;
+  height: 150rpx;
+  src: "../../image/normal.png";
+}
+
+.item {
+  position: absolute;
+  top: 200rpx;
+  width: 75rpx;
+  height: 150rpx;
+}
