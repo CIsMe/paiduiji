@@ -1,11 +1,24 @@
 <!--list.wxml-->
 <view class="container netlist">
     <scroll-view class="netlist">
-      <radio-group class="radio-group" bindchange="radioChange">
+
+  <block wx:for-items="{{netlists}}">
+      <view class="flex item">
+        <view class="flex_auto item_left">
+          <view><text class="title">{{item.Name}}</text></view>
+          <view><text class="sub_title">{{item.Address}}</text></view>
+          <view><text class="tag">{{item.PhoneNumber}}</text></view>
+        </view>
+        <view class="item_right">
+          <view><text class="price">{{item.BusinessCategory}}</text></view>
+        </view>
+      </view>
+    </block>
+      <!--<radio-group class="radio-group" bindchange="radioChange">
         <label class="radio" wx:for="{{list}}">
           <radio value="{{index}}" checked="{{item}}" />{{item}}
         </label>
-      </radio-group>
+      </radio-group>-->
     </scroll-view>
 </view>
 

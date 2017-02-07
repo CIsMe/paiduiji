@@ -5,7 +5,19 @@
   height:100%;
 }
 
+/*.tabbtn {
+  width:100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  
+}*/
+
 .mapinfo {
+  /*margin-top: 30px;*/
+  -webkit-margin-top-collapse: 30px;
   position:absolute;
   z-index:-1;
   width:100%;
@@ -23,16 +35,16 @@
 }
 
 .btn {
-  height:auto;
+  height:30px;
 }
 .test .btn{
-  margin-left: 10px;
+  width: 30%
 }
 .reset .btn {
-  margin-left: 10px;
+  width: 30%
 }
 .list .btn{
-  margin-left: 10px;
+  width: 30%;
 }
 
 .netlist {
