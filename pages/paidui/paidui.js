@@ -16,22 +16,27 @@ Page({
       loading: false,
       hidden: true,
       nocancel: false,
+      grids: [0, 1, 2, 3, 4, 5, 6, 7, 8]
   },
-
+  onShareAppMessage: function () {
+    return {
+      title: '工行网点服务',
+      desc: '附近',
+      path: '/pages/near'
+    }
+  },
   confirm: function () {
     var key = 'hidden'
     var changedData = {}
     changedData[key] =
       this.data[key] === false
     this.setData(changedData)
-  }
-  ,
+  },
   return:function(){
     wx.navigateBack({
       delta: 1, // 回退前 delta(默认为1) 页面
     })
-  }
-  ,
+  } ,
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
     console.log(options.id)

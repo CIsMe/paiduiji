@@ -2,9 +2,32 @@
 var util = require('../../utils/util.js')
 Page({
   data: {
+    inputShowed: false,
+    inputVal: "",
     logs: [],
     netlists:[]
   },
+  showInput: function () {
+      this.setData({
+          inputShowed: true
+      });
+  },
+  hideInput: function () {
+      this.setData({
+          inputVal: "",
+          inputShowed: false
+      });
+  },
+  clearInput: function () {
+      this.setData({
+          inputVal: ""
+      });
+  },
+  inputTyping: function (e) {
+      this.setData({
+          inputVal: e.detail.value
+      });
+    },
   onReady:function(options){
     // console.log(options)
     // console.log(this['list'])

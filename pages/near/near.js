@@ -1,8 +1,13 @@
 // pages/near/near.js
 //获取应用实例
+var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 var app = getApp()
 Page({
   data: {
+    tabs: ["地图", "测试位置", "网点列表"],
+    activeIndex: 0,
+    sliderOffset: 0,
+    sliderLeft: 0,
     motto: '示例小程序-获取当前地理位、速度',
     userInfo: {},
     hasLocation: true,
@@ -16,72 +21,28 @@ Page({
     },
     hidden: true,
     bank:'',
-    items: [
-      { name: '工商银行工业园支行', value: '工商银行工业园支行', checked: 'true' },
-      { name: '工商银行员村新街支行', value: '工商银行员村新街支行' },
-      { name: '工商银行员村支行', value: '工商银行员村支行' },
-    ],
     list:[],
     markers: [],
+    netinfos:[],
     sel_marker:{},
-    polyline: [{
-      points: [{
-        longitude: 113.3245211,
-        latitude: 23.10229
-      }, {
-        longitude: 113.324520,
-        latitude: 23.1065995692
-      }],
-      color:"#FF0000DD",
-      width: 2,
-      dottedLine: true
-    }],
-    controls: []
-  },
-  onShareAppMessage: function () {
-    return {
-      title: '码上约',
-      desc: '附近',
-      path: '/pages/near'
-    }
-  },
-  controlinit:function(){
-    var that = this
-    console.log("control:" + that.data['map'].height+","+that.data['map'].width)
-    var ctrlitem = [{
-        id: 1,
-        iconPath: '../../image/btntst.png',
-        position: {
-          left: 30,
-          top: 300,
-          width: 90,
-          height: 30
-        },
-        clickable: true
-      },{
+    controls: [{
         id: 2,
-        iconPath: '../../image/btnloc.png',
+        iconPath: '../../image/location2.png',
         position: {
-          left: 30,
-          top: 340,
-          width: 90,
-          height: 30
-        },
-        clickable: true
-      },{
-        id: 3,
-        iconPath: '../../image/btnnet.png',
-        position: {
-          left: 30,
-          top: 380,
-          width: 90,
+          left: 20,
+          top: 450,
+          width: 30,
           height: 30
         },
         clickable: true
       }]
-      that.setData({
-        controls:ctrlitem
-      })
+  },
+  onShareAppMessage: function () {
+    return {
+      title: '工行网点服务',
+      desc: '附近',
+      path: '/pages/near'
+    }
   },
   regionchange(e) {
     var that = this
@@ -112,16 +73,6 @@ Page({
     }
     if(e.controlId == 3){
       that.showList()
-      // wx.showModal({
-      //   title: '网点列表',
-      //   content: '<button>HHHH</button>',
-      //   success: function(res) {
-      //     if (res.confirm) {
-      //       console.log('用户点击确定')
-      //       that.showList()
-      //     }
-      //   }
-      // })
     }
 
     // var that = this
@@ -383,10 +334,10 @@ Page({
           //     wx.setStorage(e.BranchId, e)
           //     } catch (e) {
           // } 
-          wx.setStorage({
-            key:e.BranchId,
-            data:e
-          })
+          // wx.setStorage({
+          //   key:e.BranchId,
+          //   data:e
+          // })
           arr_marker.push({
             id:e.BranchId,
             latitude:e.Latitude,
@@ -401,7 +352,8 @@ Page({
         })
         that.setData({
           markers: arr_marker,
-          list:arr_list
+          list:arr_list,
+          netinfos:res.data.BranchSearchRests
         })
       }
     })
@@ -441,35 +393,52 @@ Page({
   },
   onLoad: function () {
     // 页面初始化 options为页面跳转所带来的参数
-    var that = this
+    var that = this;
     wx.getSystemInfo({
-      success: function(res) {
-        console.log(res.model)
-        console.log(res.pixelRatio)
-        console.log(res.windowWidth)
-        console.log(res.windowHeight)
-        console.log(res.language)
-        console.log(res.version)
-        that.setData({
-          map:{
-            width:res.windowWidth,
-            height:res.windowHeight
-          } 
-        })
-      }
-    })
+        success: function(res) {
+            that.setData({
+                sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
+                sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex,
+                map:{
+                  width:res.windowWidth,
+                  height:res.windowHeight
+                }
+            });
+        }
+    });
     console.log('onLoad')
     console.log(that.data['map'].width)
-    // that.controlinit()
     that.testReq()
+  },    
+  tabClick: function (e) {
+    console.log(e);
+    var that = this
+
+    if (e.currentTarget.id == 1) {
+      that.moveToLocation()
+    }
+    if (e.currentTarget.id == 2) {
+      that.showList()
+    }
+    // this.setData({
+    //     sliderOffset: e.currentTarget.offsetLeft,
+    //     activeIndex: e.currentTarget.id
+    // });
   },
   onReady: function () {
     // 页面渲染完成
+    console.log('onready')
+    console.log(this.data['netinfos'])
     // 使用 wx.createMapContext 获取 map 上下文 
+    this.data['netinfos'].forEach(function(e){ 
+      wx.setStorage({
+        key:e.BranchId,
+        data:e
+      })
+    })
     var that = this
     that.mapCtx = wx.createMapContext('myMap')
     
-    // that.controlinit()
     wx.getLocation({
       success: function (res) {
         console.log(res)
@@ -486,7 +455,6 @@ Page({
   },
   onShow: function () {
     // 页面显示
-    this.controlinit()
   },
   onHide: function () {
     // 页面隐藏

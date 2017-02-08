@@ -1,6 +1,10 @@
-<text>产品推荐</text>
-<view wx:for="{{content}}" wx:for-index="idx" wx:for-item="product">
+<view class="ronge-section">
+  <text class="ronge-font">{{rongE}}</text>
+  <text class="detail" bindtap="openRongE">{{detail}}</text>
+</view>
+<text>\n\n根据你的财富水平,为你推荐以下理财产品</text>
 
+<view wx:for="{{content}}" wx:for-index="idx" wx:for-item="product">
   <view class="section">
     <text>{{product.buiredpoint_param.prodname}}\n</text>
     <text>产品代码:{{product.buiredpoint_param.prodcode}}\n</text>

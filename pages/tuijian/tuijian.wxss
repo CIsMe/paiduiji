@@ -1,8 +1,23 @@
 /* pages/tuijian/tuijian.wxss */
-.product{
-    border: 1.px solid;
-    color: gray
+
+.product {
+  border: 1px solid;
+  color: gray;
 }
-.section{
-    border: 1px solid gray;
+
+.section {
+  border: 1px solid gray;
+}
+
+.ronge-section {
+  border: 1px solid gray;
+  background-color: orangered
+}
+.ronge-font {
+    color: white
+}
+
+.detail {
+  color: dodgerblue;
+  text-decoration: underline;
 }
