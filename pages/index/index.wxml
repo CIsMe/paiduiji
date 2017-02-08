@@ -1,22 +1,20 @@
 
 <!--index.wxml-->
-<view class="container">
-  <view bindtap="bindViewTap" class="userinfo">
-    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-   <text class="user-motto">{{paidui}}</text>
-    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-  </view>
-  <!--<view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>-->
-  <!--<view class="button-wrapper">
-    <button type="primary" size="{{warnSize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="findNearBank"> 寻找最近网点
-    </button>
-  </view>-->
-  <view class="button-wrapper2">
-    <button type="primary" size="{{warnSize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="startScan"> 扫一扫
-    </button>
-    <modal hidden="{{hidden}}" title="发送到网点排队机" confirm-text="确定" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm" no-cancel="{{nocancel}}">
-    </modal>
-  </view>
+
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">扫一扫</view>
+        <view class="page__desc">扫产品或者柜员二维码</view>
+    </view>
+
+    <view class="page__bd page__bd_spacing">
+        <view class="weui-btn-area">
+          <view class="button-wrapper2">
+            <button type="primary" size="{{warnSize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="startScan"> 扫一扫
+            </button>
+            <!--<modal hidden="{{hidden}}" title="发送到网点排队机" confirm-text="确定" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm" no-cancel="{{nocancel}}">
+            </modal>-->
+          </view>
+        </view>
+    </view>
 </view>

@@ -1,8 +1,8 @@
 {
   "pages":[
-    "pages/index/index",
-    "pages/logs/logs",
     "pages/near/near",
+    "pages/logs/logs",
+    "pages/index/index",
     "pages/paidui/paidui",
     "pages/pingjia/pingjia",
     "pages/tuijian/tuijian",
@@ -11,7 +11,7 @@
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "工行广东分行排队系统",
+    "navigationBarTitleText": "工行网点服务",
     "navigationBarTextStyle":"black"
   },
   "tabBar": {
@@ -20,15 +20,15 @@
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
     "list": [{
-      "pagePath": "pages/index/index",
-      "iconPath": "image/wechat.png",
-      "selectedIconPath": "image/wechatHL.png",
-      "text": "取号"
-    }, {
       "pagePath": "pages/near/near",
       "iconPath": "image/wechat.png",
       "selectedIconPath": "image/wechatHL.png",
       "text": "附近"
+    }, {
+      "pagePath": "pages/index/index",
+      "iconPath": "image/wechat.png",
+      "selectedIconPath": "image/wechatHL.png",
+      "text": "取号"
     }, {
       "pagePath": "pages/paidui/paidui",
       "iconPath": "image/wechat.png",

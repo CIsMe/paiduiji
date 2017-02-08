@@ -18,7 +18,7 @@ var pageObject = {
   },
   onShareAppMessage: function () {
     return {
-      title: '码上约',
+      title: '工行网点服务',
       desc: '扫一扫',
       path: '/pages/index'
     }
@@ -34,8 +34,6 @@ var pageObject = {
     });
     console.log("clicked confirm");
   },
-  
-
   //事件处理函数
   startScan: function () {
     var that = this
@@ -69,9 +67,7 @@ var pageObject = {
 
         //TODO
 
-
       },
-
       fail: (res) => {
         console.log("我已经扫码了,不知道为什么会失败 " + res)
       }
@@ -94,7 +90,6 @@ var pageObject = {
     })
   }
 }
-
 
 Page(pageObject)
 

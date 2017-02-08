@@ -1,41 +1,27 @@
 <!--pages/near/near.wxml-->
 <!--<text>查找最近网点</text>-->
-<view class="container mapview">
-      <!--<view class="tabbtn">
-        <button class="test" bindtap="moveToLocation">测试位置</button>
-        <button class="reset" bindtap="resetLocation">重置位置</button>
-        <button class="list" bindtap="showList">网点列表</button>
-      </view>-->
-      <map class="mapinfo" id="myMap" styles="height:{{map.height}}" longitude="{{location.longitude}}" latitude="{{location.latitude}}" scale="14" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" bindtap="maptap" show-location>
-      </map>
-      <modal class="netdetail" hidden="{{hidden}}" title="最近网点" confirm-text="确定" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm" no-cancel="{{nocancel}}">
-        <scroll-view class="netlist">
-          <radio-group class="radio-group" bindchange="radioChange">
-            <label class="radio" wx:for="{{markers}}">
-              <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.name}}
-            </label>
-          </radio-group>
-        </scroll-view>
-      </modal>
 
-      <!--<view class="ctrlbtn btn">
-        <button class="test" bindtap="moveToLocation">测试位置</button>
-        <button class="reset" bindtap="resetLocation">重置位置</button>
-        <button class="list" bindtap="showList">网点列表</button>
-      </view>-->
-  <!--<view class="location">
-     <text class="user-motto">{{motto}}\n</text>
-    <text>经度：{{location.longitude}};</text>
-    <text>纬度：{{location.latitude}}</text>
-  </view>-->
-
-
-  <!--<radio-group class="radio-group" bindchange="radioChange">
-    <label class="radio" wx:for="{{markers}}">
-      <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.name}}
-    </label>
-  </radio-group>-->
-
-
-
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-tab">
+            <view class="weui-navbar">
+                <block wx:for-items="{{tabs}}" wx:key="{{index}}">
+                    <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                        <view class="weui-navbar__title">{{item}}</view>
+                    </view>
+                </block>
+                <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+            </view>
+            <view class="weui-tab__panel">
+                <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+                <block>
+                  <map class="mapinfo" id="myMap" styles="height:{{map.height}}" longitude="{{location.longitude}}" latitude="{{location.latitude}}" scale="14" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" bindtap="maptap" show-location></map>
+                </block>
+                
+                </view>
+                <view class="weui-tab__content" hidden="{{activeIndex != 1}}">选项二的内容</view>
+                <view class="weui-tab__content" hidden="{{activeIndex != 2}}">选项三的内容</view>
+            </view>
+        </view>
+    </view>
 </view>
