@@ -1,13 +1,12 @@
 <text>产品推荐</text>
-<text>\n------------------------------\n</text>
 <view wx:for="{{content}}" wx:for-index="idx" wx:for-item="product">
-  <view>
+
+  <view class="section">
     <text>{{product.buiredpoint_param.prodname}}\n</text>
     <text>产品代码:{{product.buiredpoint_param.prodcode}}\n</text>
     <text>收益率:{{product.incomerate.incomerate_data}}{{product.incomerate.incomerate_percent}}\n</text>
     <text>产品净值:{{product.networth_data.networth_date}}\n</text>
     <text>产品状态:{{product.networth_data.networth_satus}}\n</text>
     <text>产品类型:{{product.other_data.other_release}}\n</text>
-</view>
-<text>\n------------------------------\n</text>
+  </view>
 </view>

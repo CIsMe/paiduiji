@@ -1,7 +1,7 @@
 /* pages/pingjia/pingjia.wxss */
 .radio-group { 
   margin-top:10px;
-  display: flex;
+  display: table-row;
   flex-direction: column;
   align-items: left;
 }
@@ -12,7 +12,7 @@
 
 .star-image {
   position: absolute;
-  top: 200rpx;
+  top: 400rpx;
   width: 150rpx;
   height: 150rpx;
   src: "../../image/normal.png";
@@ -20,7 +20,59 @@
 
 .item {
   position: absolute;
-  top: 200rpx;
+  top: 400rpx;
   width: 75rpx;
   height: 150rpx;
+}
+
+.textArea{
+border:1px solid;
+height: 70;
+border-radius:5px;
+-moz-border-radius:15px; /* Old Firefox */
+}
+
+
+.textArea-hover{
+border:1px solid;
+height: 70;
+color: orange;
+border-radius:5px;
+-moz-border-radius:15px; /* Old Firefox */
+}
+
+.text-tag0{
+  border: 1px solid;
+  color: orange;
+}
+
+.text-tag1{
+  border: 1px solid;
+  color: blue;
+
+}
+
+.text-tag2{
+  border: 1px solid;
+  color: red;
+
+}
+
+.text-tag3{
+  border: 1px solid;
+  color: orchid
+}
+
+.text-tag4{
+  border: 1px solid;
+  color: lightcoral
+}
+
+.button{
+  border: 1px solid;
+  width: 40
+}
+.section{
+  border: 1px solid;
+  
 }

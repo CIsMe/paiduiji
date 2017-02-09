@@ -29,6 +29,9 @@ Page({
   }
   ,
   onLoad: function (options) {
+    if(options.pingjia=="完成"){
+      console.log("评价完成")
+    }
     this.reqUrl();
   },
 })

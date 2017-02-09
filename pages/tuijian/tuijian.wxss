@@ -1,1 +1,8 @@
 /* pages/tuijian/tuijian.wxss */
+.product{
+    border: 1.px solid;
+    color: gray
+}
+.section{
+    border: 1px solid gray;
+}
