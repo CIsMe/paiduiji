@@ -49,7 +49,7 @@
 <view class="container netlist">
     <scroll-view class="netlist">
 
-  <block wx:for-items="{{netlists}}">
+  <block wx:for-items="{{netlists}}" wx:key="{{index}}">
       <view class="flex item">
         <view class="flex_auto item_left">
           <view><text class="title">{{item.Name}}</text></view>

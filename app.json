@@ -1,7 +1,7 @@
 {
   "pages":[
     "pages/near/near",
-    "pages/logs/logs",
+    "pages/queue/queue",
     "pages/index/index",
     "pages/paidui/paidui",
     "pages/pingjia/pingjia",
