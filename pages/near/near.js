@@ -1,6 +1,18 @@
 // pages/near/near.js
 //获取应用实例
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
+function toRad(d) {  return d * Math.PI / 180; }
+
+function getDistance(lat1, lng1, lat2, lng2) { 
+  //#lat为纬度, lng为经度, 一定不要弄错
+    var dis = 0;
+    var radLat1 = toRad(lat1);
+    var radLat2 = toRad(lat2);
+    var deltaLat = radLat1 - radLat2;
+    var deltaLng = toRad(lng1) - toRad(lng2);
+    var dis = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(deltaLat / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(deltaLng / 2), 2)));
+    return Math.round(dis * 6378137);
+}
 var app = getApp()
 Page({
   data: {
@@ -95,11 +107,12 @@ Page({
     var that = this
     var arr_list = new Array()
     that.getMarker(mid)
+    var distance = getDistance(that.data['location'].latitude,that.data['location'].longitude,that.data['sel_marker'].latitude,that.data['sel_marker'].longitude)
     console.log(that.data['sel_marker'])
     arr_list.push(that.data['sel_marker'].name)
     arr_list.push(that.data['sel_marker'].desc)
+    arr_list.push("距离："+distance+"米，导航")
     arr_list.push("取号")
-    arr_list.push("导航")
     wx.showActionSheet({
       itemList:arr_list,
       success: function(res) {
@@ -108,20 +121,19 @@ Page({
           
         }
         if(res.tapIndex == 1 ) {
-          
+
         }
         if(res.tapIndex == 2 ) {
-          console.log("index/index")
-          wx.navigateTo({
-            url: '../index/index',
-          })
-        }
-        if(res.tapIndex == 3 ) {
           wx.openLocation({
             longitude: Number(that.data['sel_marker'].longitude),
             latitude: Number(that.data['sel_marker'].latitude),
             name: that.data['sel_marker'].name,
             address: that.data['sel_marker'].desc
+          })
+        }
+        if(res.tapIndex == 3 ) {
+          wx.navigateTo({
+            url: '../queue/queue',
           })
         }
       },
@@ -133,14 +145,12 @@ Page({
   },
   showList:function(){
     console.log(this.data['list'])
+
     var arrmids = new Array()
     this.data['markers'].forEach(function(e){ 
       arrmids.push(e.id)
     })
-    // var mid = this.data['markers'].id
-    // wx.navigateTo({
-    //   url: '../list/list?id='+this.data['list'],
-    // })
+ 
     wx.navigateTo({
       url: '../list/list?id='+arrmids,
     })
@@ -238,7 +248,7 @@ Page({
         latitude: 23.1065995692
       },
       markers: [{
-        id: 0,
+        id: '0',
         latitude: 23.099994,
         longitude: 113.324520,
         width: 20,
@@ -246,7 +256,7 @@ Page({
         name: 'T.I.T 创意园',
         desc: '我现在的位置'
       },{
-        id:1,
+        id:'1',
         latitude: 23.1065995692,
         longitude: 113.3244326464,
         width: 20,
@@ -254,7 +264,7 @@ Page({
         name: '广州塔',
         desc: '广州塔'
       },{
-        id:2,
+        id:'2',
         latitude: 23.1027375692,
         longitude: 113.3274466464,
         width: 20,
@@ -264,7 +274,12 @@ Page({
       }],
       list:['T.I.T 创意园','广州塔','珠江帝景']
     })
-
+    this.data['markers'].forEach(function(e){ 
+      wx.setStorage({
+        key:e.id,
+        data:e
+      })
+    })
     // this.mapCtx.moveToLocation()
   },
   resetLocation: function () {

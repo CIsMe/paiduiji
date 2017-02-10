@@ -1,0 +1,125 @@
+[{
+	"EnName": "Anhui",
+	"Id": 1,
+	"Name": "安徽"
+}, {
+	"EnName": "Beijing",
+	"Id": 2,
+	"Name": "北京"
+}, {
+	"EnName": "Fujian",
+	"Id": 3,
+	"Name": "福建"
+}, {
+	"EnName": "Gansu",
+	"Id": 4,
+	"Name": "甘肃"
+}, {
+	"EnName": "Guangdong",
+	"Id": 5,
+	"Name": "广东"
+}, {
+	"EnName": "Guangxi",
+	"Id": 6,
+	"Name": "广西"
+}, {
+	"EnName": "Guizhou",
+	"Id": 7,
+	"Name": "贵州"
+}, {
+	"EnName": "Hainan",
+	"Id": 8,
+	"Name": "海南"
+}, {
+	"EnName": "Hubei",
+	"Id": 9,
+	"Name": "河北"
+}, {
+	"EnName": "Henan",
+	"Id": 10,
+	"Name": "河南"
+}, {
+	"EnName": "Heilongjiang",
+	"Id": 11,
+	"Name": "黑龙江"
+}, {
+	"EnName": "Hubei",
+	"Id": 12,
+	"Name": "湖北"
+}, {
+	"EnName": "Hunan",
+	"Id": 13,
+	"Name": "湖南"
+}, {
+	"EnName": "Jilin",
+	"Id": 14,
+	"Name": "吉林"
+}, {
+	"EnName": "Jiangsu",
+	"Id": 15,
+	"Name": "江苏"
+}, {
+	"EnName": "Jiangxi",
+	"Id": 16,
+	"Name": "江西"
+}, {
+	"EnName": "Liaoning",
+	"Id": 17,
+	"Name": "辽宁"
+}, {
+	"EnName": "Inner Mongolia",
+	"Id": 18,
+	"Name": "内蒙古"
+}, {
+	"EnName": "Ningxia",
+	"Id": 19,
+	"Name": "宁夏"
+}, {
+	"EnName": "Qinghai",
+	"Id": 20,
+	"Name": "青海"
+}, {
+	"EnName": "Shandong",
+	"Id": 21,
+	"Name": "山东"
+}, {
+	"EnName": "Shanxi",
+	"Id": 22,
+	"Name": "山西"
+}, {
+	"EnName": "Shaanxi",
+	"Id": 23,
+	"Name": "陕西"
+}, {
+	"EnName": "Shanghai",
+	"Id": 24,
+	"Name": "上海"
+}, {
+	"EnName": "Sichuan",
+	"Id": 25,
+	"Name": "四川"
+}, {
+	"EnName": "Tianjin",
+	"Id": 26,
+	"Name": "天津"
+}, {
+	"EnName": "Tibet",
+	"Id": 27,
+	"Name": "西藏"
+}, {
+	"EnName": "Xinjiang",
+	"Id": 28,
+	"Name": "新疆"
+}, {
+	"EnName": "Yunnan",
+	"Id": 29,
+	"Name": "云南"
+}, {
+	"EnName": "Zhejiang",
+	"Id": 30,
+	"Name": "浙江"
+}, {
+	"EnName": "Chongqing",
+	"Id": 31,
+	"Name": "重庆"
+}]
