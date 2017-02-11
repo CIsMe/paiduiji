@@ -43,7 +43,7 @@
             </view>
         </view>-->
 
-        <!--<view class="weui-cells__title">表单</view>-->
+        <view class="weui-cells__title"></view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input">
                 <view class="weui-cell__hd">
@@ -100,7 +100,7 @@
         <!--<view class="weui-cells__tips">底部说明文字底部说明文字</view>-->
 
 
-        <view class="weui-cells__title">选择</view>
+        <view class="weui-cells__title"></view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_select">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
@@ -117,7 +117,7 @@
                     <view class="weui-label">证件号码</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <input class="weui-input" placeholder="请输入卡号"/>
+                    <input class="weui-input" placeholder="请输入证件号码"/>
                 </view>
                 <view class="weui-cell__ft">
                     <!--<icon type="warn" size="23" color="#E64340"></icon>-->
@@ -125,7 +125,7 @@
             </view>
         </view>
 
-        <view class="weui-cells__title">表单报错</view>
+        <view class="weui-cells__title"></view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input weui-cell_warn">
                 <view class="weui-cell__hd">
