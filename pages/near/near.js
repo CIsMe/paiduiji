@@ -27,6 +27,10 @@ Page({
       latitude: '23.1065995692',
       longitude: '113.3244326464',
     },
+    cur_location: {
+      latitude: '23.1065995692',
+      longitude: '113.3244326464',
+    },
     map:{
       width:100,
       height:100
@@ -107,7 +111,7 @@ Page({
     var that = this
     var arr_list = new Array()
     that.getMarker(mid)
-    var distance = getDistance(that.data['location'].latitude,that.data['location'].longitude,that.data['sel_marker'].latitude,that.data['sel_marker'].longitude)
+    var distance = getDistance(that.data['cur_location'].latitude,that.data['cur_location'].longitude,that.data['sel_marker'].latitude,that.data['sel_marker'].longitude)
     console.log(that.data['sel_marker'])
     arr_list.push(that.data['sel_marker'].name)
     arr_list.push(that.data['sel_marker'].desc)
@@ -275,10 +279,12 @@ Page({
       list:['T.I.T 创意园','广州塔','珠江帝景']
     })
     this.data['markers'].forEach(function(e){ 
+
       wx.setStorage({
         key:e.id,
         data:e
       })
+
     })
     // this.mapCtx.moveToLocation()
   },
@@ -417,6 +423,9 @@ Page({
                 map:{
                   width:res.windowWidth,
                   height:res.windowHeight
+                },
+                cur_location:{
+
                 }
             });
         }
@@ -460,6 +469,10 @@ Page({
         that.setData({
           hasLocation: true,
           location: {
+            longitude: res.longitude,
+            latitude: res.latitude
+          },
+          cur_location: {
             longitude: res.longitude,
             latitude: res.latitude
           }

@@ -21,7 +21,7 @@
             <block wx:for-items="{{grids}}" wx:key="{{index}}">
                 <navigator url="" class="weui-grid" hover-class="weui-grid_active">
                     <image class="weui-grid__icon" src="../../image/play.png" />
-                    <view class="weui-grid__label">ICBC</view>
+                    <view class="weui-grid__label">{{item}}</view>
                 </navigator>
             </block>
         </view>

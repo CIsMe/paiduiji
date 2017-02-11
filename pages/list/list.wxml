@@ -23,7 +23,19 @@
             <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
         </view>
         <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
-            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+            <block wx:for-items="{{searchResult}}"  wx:key="{{index}}">
+            <view  class="flex item">
+                <view class="flex_auto item_left">
+                <view><text class="title">{{item.Name}}</text></view>
+                <view><text class="sub_title">{{item.Address}}</text></view>
+                <view><text class="tag">{{item.PhoneNumber}}</text></view>
+                </view>
+                <view class="item_right">
+                <view><text class="price">{{item.BusinessCategory}}</text></view>
+                </view>
+            </view>
+            </block>
+            <!--<navigator url="" class="weui-cell" hover-class="weui-cell_active">
                 <view class="weui-cell__bd">
                     <view>实时搜索文本</view>
                 </view>
@@ -38,38 +50,30 @@
                     <view>实时搜索文本</view>
                 </view>
             </navigator>
-            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+            <navigator url="../queue/queue" class="weui-cell" hover-class="weui-cell_active">
                 <view class="weui-cell__bd">
                     <view>实时搜索文本</view>
                 </view>
-            </navigator>
+            </navigator>-->
+        </view>
+        <view class="weui-cells searchbar-result" wx:if="{{inputVal.length == 0}}">
+            <block wx:for-items="{{netlists}}"  wx:key="{{index}}">
+            <view  class="flex item">
+                <view class="flex_auto item_left">
+                <view><text class="title">{{item.Name}}</text></view>
+                <view><text class="sub_title">{{item.Address}}</text></view>
+                <view><text class="tag">{{item.PhoneNumber}}</text></view>
+                </view>
+                <view class="item_right">
+                <view><text class="price">{{item.BusinessCategory}}</text></view>
+                </view>
+            </view>
+            </block>
         </view>
     </view>
 </view>
-<view class="container netlist">
-    <scroll-view class="netlist">
 
-  <block wx:for-items="{{netlists}}" wx:key="{{index}}">
-      <view class="flex item">
-        <view class="flex_auto item_left">
-          <view><text class="title">{{item.Name}}</text></view>
-          <view><text class="sub_title">{{item.Address}}</text></view>
-          <view><text class="tag">{{item.PhoneNumber}}</text></view>
-        </view>
-        <view class="item_right">
-          <view><text class="price">{{item.BusinessCategory}}</text></view>
-        </view>
-      </view>
-    </block>
-      <!--<radio-group class="radio-group" bindchange="radioChange">
-        <label class="radio" wx:for="{{list}}">
-          <radio value="{{index}}" checked="{{item}}" />{{item}}
-        </label>
-      </radio-group>-->
-    </scroll-view>
-</view>
-
-<view class="button-wrapper">
+<!--<view class="button-wrapper">
   <button type="primary" size="{{warnSize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="paidui"> 在此网点排号
   </button>
-</view>
+</view>-->

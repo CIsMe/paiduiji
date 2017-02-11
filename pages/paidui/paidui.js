@@ -16,7 +16,7 @@ Page({
       loading: false,
       hidden: true,
       nocancel: false,
-      grids: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+      grids: [0, 1, 2, 3, 4, 5, 6, 7, "清除缓存"]
   },
   onShareAppMessage: function () {
     return {
