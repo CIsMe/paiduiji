@@ -16,7 +16,7 @@ function getDistance(lat1, lng1, lat2, lng2) {
 var app = getApp()
 Page({
   data: {
-    tabs: ["地图", "测试位置", "网点列表"],
+    tabs: ["网点", "自助银行", "可预约"],
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,

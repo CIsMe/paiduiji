@@ -1,12 +1,31 @@
 
 <!--pages/pingjia/pingjia.wxml-->
-<text>璇峰{{teller}}杩涜璇勪环</text>
-<radio-group class="radio-group" bindchange="radioChange">
-  <label class="radio" wx:for="{{items}}">
-    <radio class="ritem" value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
-  </label>
-</radio-group>
-<view class="button-wrapper2">
-<button type="primary" size="default" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="ok"> 纭畾
-</button>
-</view>
+<form bindsubmit="forsubmit">
+  <view class="section">
+    <text>请{{teller}}进行评价</text>
+  </view>
+  <view class="section">
+    <radio-group class="radio-group" bindchange="radioChange">
+      <label class="radio" wx:for="{{items}}">
+        <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+      </label>
+    </radio-group>
+  </view>
+  <view class="section">
+    <text>详细评价</text>
+  </view>
+  <view class="section">
+    <textarea class="textArea" bindblur="bindTextAreaBlur" auto-heigh>
+      {{detail}}
+    </textarea>
+  </view>
+  <view>
+    <view style="flex-direction:column;" wx:for="{{tag}}" wx:for-index="idx" wx:for-item="t">
+      <text bindtap="selectTag" data-testId="{{t}}" class="text-tag{{idx}}">{{t.text}}</text>
+    </view>
+  </view>
+  <view class="button-wrapper2">
+    <button class="button" type="primary" size="default" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="ok"> 确定
+    </button>
+  </view>
+</form>
