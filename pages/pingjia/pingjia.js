@@ -17,12 +17,12 @@ Page({
     ],
   },
   selectTag: function (e) {
-    var oldtext=this.data["detail"]
-    if(oldtext==null||oldtext==undefined){
-      oldtext="";
+    var oldtext = this.data["detail"]
+    if (oldtext == null || oldtext == undefined) {
+      oldtext = "";
     }
-    this.setData({detail: oldtext+e.currentTarget.dataset.testid.text+","})
-    console.log(  e.currentTarget.dataset.testid);
+    this.setData({ detail: oldtext + e.currentTarget.dataset.testid.text + "," })
+    console.log(e.currentTarget.dataset.testid);
   }
   ,
   forsubmit: function (e) {
@@ -33,6 +33,31 @@ Page({
   ok: function (res) {
 
     console.log("hello" + res.detail.values);
+    var it = this.data["items"];
+    var checked = null
+    for (var i = 0; i<it.length; i++) {
+      if (it[i].checked == undefined) {
+        console.log("hello")
+      }
+      else if (it[i].checked == 'true') {
+        checked = it[i].value
+      }
+    }
+    var that = this
+
+    wx.request({
+      url: 'https://skipper.applinzi.com/api/pingjia',
+      data: {
+        check: checked,
+        detail: this.data["detail"],
+        teller: this.data["teller"]
+      },
+      method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+      // header: {}, // 设置请求的 header
+      success: function (res) {
+        console.log("评价完成" + res)
+      }
+    })
     wx.navigateTo({
       url: '../tuijian/tuijian?pingjia=完成'
     })

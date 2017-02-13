@@ -16,7 +16,7 @@ function getDistance(lat1, lng1, lat2, lng2) {
 var app = getApp()
 Page({
   data: {
-    tabs: ["网点", "自助银行", "可预约"],
+    tabs: ["网点", "自助银行", "可预约",""],
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
@@ -441,7 +441,7 @@ Page({
     if (e.currentTarget.id == 1) {
       that.moveToLocation()
     }
-    if (e.currentTarget.id == 2) {
+    if (e.currentTarget.id == 2||e.currentTarget.id == 3) {
       that.showList()
     }
     // this.setData({

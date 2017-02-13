@@ -41,7 +41,7 @@ Page({
     this.reqUrl();
   },
   setRongE: function () {
-    this.setData({ rongE: "恭喜获赠100元融E联购物券 ,请点击:" })
+    this.setData({ rongE: "恭喜获赠100元融e购购物券 ,请点击:" })
     this.setData({ detail: "详情" })
 
   },

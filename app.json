@@ -28,12 +28,12 @@
       "pagePath": "pages/index/index",
       "iconPath": "image/wechat.png",
       "selectedIconPath": "image/wechatHL.png",
-      "text": "取号"
+      "text": "扫码评价"
     }, {
       "pagePath": "pages/paidui/paidui",
       "iconPath": "image/wechat.png",
       "selectedIconPath": "image/wechatHL.png",
-      "text": "个人"
+      "text": "我的预约"
     }]
   }
 }

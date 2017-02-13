@@ -1,31 +1,30 @@
 
 <!--pages/pingjia/pingjia.wxml-->
 <form bindsubmit="forsubmit">
-  <view class="section">
-    <text>请{{teller}}进行评价</text>
+  <text>请{{teller}}进行评价</text>
+  <view class="weui-cells weui-cells_after-title">
   </view>
-  <view class="section">
+  <view class="weui-cells weui-cells_after-title">
     <radio-group class="radio-group" bindchange="radioChange">
       <label class="radio" wx:for="{{items}}">
         <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
       </label>
     </radio-group>
   </view>
-  <view class="section">
+  <view class="weui-cells weui-cells_after-title">
     <text>详细评价</text>
   </view>
-  <view class="section">
-    <textarea class="textArea" bindblur="bindTextAreaBlur" auto-heigh>
+  <view class="weui-cells weui-cells_after-title">
+    <textarea  bindblur="bindTextAreaBlur" auto-heigh>
       {{detail}}
     </textarea>
   </view>
-  <view>
-    <view style="flex-direction:column;" wx:for="{{tag}}" wx:for-index="idx" wx:for-item="t">
-      <text bindtap="selectTag" data-testId="{{t}}" class="text-tag{{idx}}">{{t.text}}</text>
-    </view>
+  <view style="flex-direction:column;" wx:for="{{tag}}" wx:for-index="idx" wx:for-item="t">
+    <text bindtap="selectTag" data-testId="{{t}}" class="text-tag{{idx}}">{{t.text}}</text>
   </view>
-  <view class="button-wrapper2">
-    <button class="button" type="primary" size="default" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="ok"> 确定
-    </button>
+  <view>
+  </view>
+  <view class="weui-btn-area">
+    <button class="weui-btn" type="primary" bindtap="ok">确定</button>
   </view>
 </form>
