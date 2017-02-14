@@ -37,6 +37,7 @@ Page({
     },
     hidden: true,
     bank: '',
+    showAtm: false,
     list: [],
     markers: [],
     netinfos: [],
@@ -65,7 +66,7 @@ Page({
     console.log(e)
     console.log(e.type)
     if (e.type == 'end') {
-      that.getData();
+      that.nearNetOrAtm();
     }
   },
   markertap(e) {
@@ -109,42 +110,61 @@ Page({
   },
   showDetail: function (mid) {
     var that = this
-    var arr_list = new Array()
-    that.getMarker(mid)
-    var distance = getDistance(that.data['cur_location'].latitude, that.data['cur_location'].longitude, that.data['sel_marker'].latitude, that.data['sel_marker'].longitude)
-    console.log(that.data['sel_marker'])
-    arr_list.push(that.data['sel_marker'].name)
-    arr_list.push(that.data['sel_marker'].desc)
-    arr_list.push("距离：" + distance + "米，导航")
-    arr_list.push("取号")
-    wx.showActionSheet({
-      itemList: arr_list,
-      success: function (res) {
-        console.log(res.tapIndex)
-        if (res.tapIndex == 0) {
-
-        }
-        if (res.tapIndex == 1) {
-
-        }
-        if (res.tapIndex == 2) {
-          wx.openLocation({
-            longitude: Number(that.data['sel_marker'].longitude),
-            latitude: Number(that.data['sel_marker'].latitude),
-            name: that.data['sel_marker'].name,
-            address: that.data['sel_marker'].desc
-          })
-        }
-        if (res.tapIndex == 3) {
-          wx.navigateTo({
-            url: '../queue/queue',
-          })
-        }
+    wx.request({ //向服务器获取改网点的详细信息
+      url: 'https://skipper.applinzi.com/api/detailNet',
+      data: {
+        ID: mid
       },
-      fail: function (res) {
-        console.log(res.errMsg)
+      method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+      // header: {}, // 设置请求的 header
+      success: function (res) {
+        var detailData = res.data;
+        var arr_list = new Array()
+        // that.getMarker(mid)
+        var distance = getDistance(that.data['cur_location'].latitude, that.data['cur_location'].longitude, detailData.Latitude, detailData.Longitude)
+        arr_list.push(detailData.name)
+        arr_list.push(detailData.address)
+        arr_list.push("距离：" + distance + "米，导航")
+        arr_list.push("取号")
+        //显示下拉
+        wx.showActionSheet({
+          itemList: arr_list,
+          success: function (res) {
+            console.log(res.tapIndex)
+            if (res.tapIndex == 0) {
+
+            }
+            if (res.tapIndex == 1) {
+
+            }
+            if (res.tapIndex == 2) {
+              wx.openLocation({
+                longitude: Number(that.data['sel_marker'].longitude),
+                latitude: Number(that.data['sel_marker'].latitude),
+                name: that.data['sel_marker'].name,
+                address: that.data['sel_marker'].desc
+              })
+            }
+            if (res.tapIndex == 3) {
+              wx.navigateTo({
+                url: '../queue/queue',
+              })
+            }
+          },
+          fail: function (res) {
+            console.log(res.errMsg)
+          }
+        })
       }
     })
+
+
+
+
+    // console.log("sel_marker" + that.data['sel_marker'])
+
+
+
 
   },
   showList: function () {
@@ -192,13 +212,18 @@ Page({
           desc: e.desc
         });
       } else {
+        var icon = "../../image/net_n.png"
+        if (that.data["showAtm"]) {
+          atm = "atm"
+          icon = "../../image/atm_n.png"
+        }
         arr_marker.push({
           id: e.id,
           latitude: e.latitude,
           longitude: e.longitude,
           width: 20,
           height: 30,
-          iconPath: '../../image/green.png',
+          iconPath:icon,
           name: e.name,
           desc: e.desc
         });
@@ -244,50 +269,7 @@ Page({
     })
     return res
   },
-  moveToLocation: function () {
-    this.setData({
-      hasLocation: true,
-      location: {
-        longitude: 113.3244326464,
-        latitude: 23.1065995692
-      },
-      markers: [{
-        id: '0',
-        latitude: 23.099994,
-        longitude: 113.324520,
-        width: 20,
-        height: 20,
-        name: 'T.I.T 创意园',
-        desc: '我现在的位置'
-      }, {
-        id: '1',
-        latitude: 23.1065995692,
-        longitude: 113.3244326464,
-        width: 20,
-        height: 20,
-        name: '广州塔',
-        desc: '广州塔'
-      }, {
-        id: '2',
-        latitude: 23.1027375692,
-        longitude: 113.3274466464,
-        width: 20,
-        height: 20,
-        name: '珠江帝景',
-        desc: '珠江帝景'
-      }],
-      list: ['T.I.T 创意园', '广州塔', '珠江帝景']
-    })
-    this.data['markers'].forEach(function (e) {
 
-      wx.setStorage({
-        key: e.id,
-        data: e
-      })
-
-    })
-    // this.mapCtx.moveToLocation()
-  },
   resetLocation: function () {
     var that = this
     wx.getLocation({
@@ -302,19 +284,23 @@ Page({
         })
       }
     })
-    that.mapCtx.moveToLocation()
   },
 
-  getData: function () {
+  nearNetOrAtm: function () {
     var that = this;
+    var atm = "net2";
+    var icon = "../../image/net_n.png"
+    if (this.data["showAtm"]) {
+      atm = "atm"
+      icon = "../../image/atm_n.png"
+    }
     that.getCenterLocation()
     wx.request({
-      // url: 'https://eapply.abchina.com/entapply/api/values/Get', //仅为示例，并非真实的接口地址
-      url: 'https://skipper.applinzi.com/api/net2', //仅为示例，并非真实的接口地址
+      url: 'https://skipper.applinzi.com/api/' + atm, //仅为示例，并非真实的接口地址
       method: 'GET',
       data: {
-        logitude:this.data['location'].longitude ,
-        latitude:this.data['location'].latitude ,
+        logitude: this.data['location'].longitude,
+        latitude: this.data['location'].latitude,
         distance: '5000',
         businessType: '2'
       },
@@ -327,14 +313,14 @@ Page({
         var arr_list = new Array()
         res.data.forEach(function (e) {
           arr_marker.push({
-            // id:e.BranchId,
+            id: e.ID,
             latitude: e.Latitude,
             longitude: e.Longitude,
-            width: 20,
-            height: 30,
-            iconPath: '../../image/green.png',
-            name: e.Name,
-            desc: e.机构地址
+            width: 25,
+            height: 35,
+            iconPath: icon,
+            // name: e.Name,
+            // desc: e.机构地址
           });
           arr_list.push(e.Name)
         })
@@ -353,13 +339,7 @@ Page({
       scale: 28
     })
   },
-  // getMarker: function () {
-  //   wx.chooseLocation({
-  //       success: function (obj) {
-  //         console.log(res.name)
-  //       }
-  //   })
-  // },
+
   getLocation: function () {
     wx.chooseLocation({
       success: function (obj) {
@@ -405,7 +385,9 @@ Page({
     var that = this
 
     if (e.currentTarget.id == 1) {
-      that.moveToLocation()
+      this.setData({
+        showAtm: true
+      })
     }
     if (e.currentTarget.id == 2 || e.currentTarget.id == 3) {
       that.showList()
@@ -445,7 +427,6 @@ Page({
         })
       }
     })
-    this.mapCtx.moveToLocation()
   },
   onShow: function () {
     // 页面显示
