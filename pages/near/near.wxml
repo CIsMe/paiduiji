@@ -7,8 +7,8 @@
     <view class="weui-tab">
       <view class="weui-navbar">
         <block wx:for-items="{{tabs}}" wx:key="{{index}}">
-          <view id="{{index}}"  class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
-          <icon wx:if="{{index == 3}}" type="search" size="15" color="{{item}}"/>
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <icon wx:if="{{index == 3}}" type="search" size="15" color="{{item}}" />
             <view class="weui-navbar__title">{{item}}</view>
           </view>
         </block>

@@ -1,16 +1,22 @@
 // pages/near/near.js
+
+var util = require('../../utils/util.js')
 //获取应用实例
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
-function toRad(d) { return d * Math.PI / 180; }
+function toRad(d) {
+  return d * Math.PI / 180;
+}
 
-function getDistance(lat1, lng1, lat2, lng2) {
-  //#lat为纬度, lng为经度, 一定不要弄错
+function getDistance(lng1, lat1, lng2, lat2) {
+  // #lat为纬度, lng为经度, 一定不要弄错
   var dis = 0;
   var radLat1 = toRad(lat1);
   var radLat2 = toRad(lat2);
   var deltaLat = radLat1 - radLat2;
   var deltaLng = toRad(lng1) - toRad(lng2);
-  var dis = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(deltaLat / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(deltaLng / 2), 2)));
+  var dis = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(deltaLat / 2), 2)
+    + Math.cos(radLat1) * Math.cos(radLat2)
+    * Math.pow(Math.sin(deltaLng / 2), 2)));
   return Math.round(dis * 6378137);
 }
 var app = getApp()
@@ -72,7 +78,7 @@ Page({
   markertap(e) {
     console.log(e.markerId)
     this.lightMarker(e.markerId)
-    this.showDetail(e.markerId)
+    this.showDetail(e)
 
   },
   maptap(e) {
@@ -81,7 +87,7 @@ Page({
   controltap(e) {
     var that = this
     console.log(e.controlId)
-    // this.showList()
+
     if (e.controlId == 1) {
       that.moveToLocation()
     }
@@ -91,15 +97,6 @@ Page({
     if (e.controlId == 3) {
       that.showList()
     }
-
-    // var that = this
-    //   that.setData({
-    //   hidden: false
-    // })
-  },
-  radioChange: function (e) {
-    console.log('radio发生change事件，携带value值为：', e.detail.value);
-    this.data['bank'] = e.detail.value
   },
   confirm: function () {
     var key = 'hidden'
@@ -108,24 +105,26 @@ Page({
       this.data[key] === false
     this.setData(changedData)
   },
-  showDetail: function (mid) {
+  showDetail: function (e) {
     var that = this
     wx.request({ //向服务器获取改网点的详细信息
-      url: 'https://skipper.applinzi.com/api/detailNet',
+      url: 'https://skipper.applinzi.com/api/detail',
       data: {
-        ID: mid
+        ID: e.markerId
       },
       method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
       success: function (res) {
         var detailData = res.data;
         var arr_list = new Array()
-        // that.getMarker(mid)
-        var distance = getDistance(that.data['cur_location'].latitude, that.data['cur_location'].longitude, detailData.Latitude, detailData.Longitude)
+
+
+        var distance = getDistance(that.data['cur_location'].longitude, that.data['cur_location'].latitude, detailData.Longitude, detailData.Latitude)
         arr_list.push(detailData.name)
         arr_list.push(detailData.address)
         arr_list.push("距离：" + distance + "米，导航")
         arr_list.push("取号")
+
         //显示下拉
         wx.showActionSheet({
           itemList: arr_list,
@@ -205,25 +204,24 @@ Page({
           id: e.id,
           latitude: e.latitude,
           longitude: e.longitude,
-          width: 20,
-          height: 30,
-          iconPath: '../../image/red.png',
-          name: e.name,
-          desc: e.desc
+          width: 31,
+          height: 40,
+          iconPath: '../../image/net_l.png'
+          // name: e.name,
+          // desc: e.desc
         });
       } else {
         var icon = "../../image/net_n.png"
         if (that.data["showAtm"]) {
-          atm = "atm"
           icon = "../../image/atm_n.png"
         }
         arr_marker.push({
           id: e.id,
           latitude: e.latitude,
           longitude: e.longitude,
-          width: 20,
-          height: 30,
-          iconPath:icon,
+          width: 25,
+          height: 35,
+          iconPath: icon,
           name: e.name,
           desc: e.desc
         });
@@ -322,7 +320,7 @@ Page({
             // name: e.Name,
             // desc: e.机构地址
           });
-          arr_list.push(e.Name)
+          arr_list.push(e.ID)
         })
         that.setData({
           markers: arr_marker,
@@ -384,18 +382,24 @@ Page({
     console.log(e);
     var that = this
 
-    if (e.currentTarget.id == 1) {
+    if (e.currentTarget.id == 0) {
       this.setData({
-        showAtm: true
+        showAtm: false,
+        // activeIndex: 0
       })
+      that.nearNetOrAtm()
     }
-    if (e.currentTarget.id == 2 || e.currentTarget.id == 3) {
+    else if (e.currentTarget.id == 1) {
+      this.setData({
+        showAtm: true,
+        // activeIndex: 1
+      })
+      that.nearNetOrAtm()
+
+    }
+    else if (e.currentTarget.id == 2 || e.currentTarget.id == 3) {
       that.showList()
     }
-    // this.setData({
-    //     sliderOffset: e.currentTarget.offsetLeft,
-    //     activeIndex: e.currentTarget.id
-    // });
   },
   onReady: function () {
     // 页面渲染完成
@@ -427,14 +431,5 @@ Page({
         })
       }
     })
-  },
-  onShow: function () {
-    // 页面显示
-  },
-  onHide: function () {
-    // 页面隐藏
-  },
-  onUnload: function () {
-    // 页面关闭
   }
 })
