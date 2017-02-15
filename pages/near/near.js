@@ -43,7 +43,7 @@ Page({
     },
     hidden: true,
     bank: '',
-    showAtm: false,
+    showType: 0,//0显示全部网点, 1显示自助银行,2显示可预约网点
     list: [],
     markers: [],
     netinfos: [],
@@ -58,7 +58,20 @@ Page({
         height: 30
       },
       clickable: true
-    }]
+    },
+    {
+      id: 3,
+      iconPath: '../../image/center.png',
+      position: {
+        left: 178,
+        top: 255,
+        width: 17,
+        height: 33
+      },
+      clickable: true
+    },
+
+    ]
   },
   onShareAppMessage: function () {
     return {
@@ -123,7 +136,9 @@ Page({
         arr_list.push(detailData.name)
         arr_list.push(detailData.address)
         arr_list.push("距离：" + distance + "米，导航")
-        arr_list.push("取号")
+        if (that.data['showType'] != 1) {
+          arr_list.push("取号")
+        }
 
         //显示下拉
         wx.showActionSheet({
@@ -212,7 +227,7 @@ Page({
         });
       } else {
         var icon = "../../image/net_n.png"
-        if (that.data["showAtm"]) {
+        if (that.data["showType"] == 1) {
           icon = "../../image/atm_n.png"
         }
         arr_marker.push({
@@ -288,7 +303,7 @@ Page({
     var that = this;
     var atm = "net2";
     var icon = "../../image/net_n.png"
-    if (this.data["showAtm"]) {
+    if (this.data["showType"] == 1) {
       atm = "atm"
       icon = "../../image/atm_n.png"
     }
@@ -300,7 +315,8 @@ Page({
         logitude: this.data['location'].longitude,
         latitude: this.data['location'].latitude,
         distance: '5000',
-        businessType: '2'
+        businessType: that.data["showType"]
+        
       },
       header: {
         'content-type': 'application/json'
@@ -384,20 +400,25 @@ Page({
 
     if (e.currentTarget.id == 0) {
       this.setData({
-        showAtm: false,
-        // activeIndex: 0
+        showType: 0,
       })
       that.nearNetOrAtm()
     }
     else if (e.currentTarget.id == 1) {
       this.setData({
-        showAtm: true,
-        // activeIndex: 1
+        showType: 1,
       })
       that.nearNetOrAtm()
 
     }
-    else if (e.currentTarget.id == 2 || e.currentTarget.id == 3) {
+    else if (e.currentTarget.id == 2) {
+      this.setData({
+        showType: 2,
+      })
+      that.nearNetOrAtm()
+
+    }
+    else if (e.currentTarget.id == 3) {
       that.showList()
     }
   },
